@@ -1,0 +1,23 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/> 
+PREFIX  gene: <http://genomics.datascienceinstitute.ie/cancer/gene/> 
+
+SELECT DISTINCT ?probe ?betaValue ?mut ?fscore ?mutStart ?mutEnd 
+
+WHERE { 
+
+	{ 
+	?meth  genome:mapped_through  ?probe . 
+	?meth  genome:beta_value  ?betaValue . 
+	?probe  genome:is_part_of  gene:BRCA1 . 
+	} 
+	
+	UNION 
+	
+	{ 
+	?mut  genome:on_gene  gene:BRCA1 . 
+	?mut  genome:fathmm_score  ?fscore . 
+	?mut  genome:mutation_start  ?mutStart . 
+	?mut  genome:mutation_end  ?mutEnd . 
+	} 
+	
+} ORDER BY ?betaValue

@@ -1,0 +1,25 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+PREFIX linkedct: <http://data.linkedct.org/vocab/resource/>
+PREFIX drugbank: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+
+SELECT DISTINCT ?geneSymbol ?drug ?name ?sample
+ 
+WHERE {
+
+	?intervention  linkedct:intervention_intervention_type  "Drug" .
+	?intervention  rdfs:seeAlso  ?drug .
+		
+	?drug  drugbank:enzyme  ?enzyme .
+	
+	?enzyme  drugbank:name  ?name .
+	?enzyme  drugbank:geneName  ?geneSymbol .
+	
+	?mut  genome:mutant_sample  ?sample .
+	?mut  genome:on_gene  ?gene .
+	
+	?gene  genome:gene_symbol  ?geneSymbol .
+
+}
+LIMIT 1000

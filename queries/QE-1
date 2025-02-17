@@ -1,0 +1,15 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+PREFIX gene: <http://genomics.datascienceinstitute.ie/cancer/gene/>
+PREFIX chr: <http://genomics.datascienceinstitute.ie/cancer/chrom/>
+
+SELECT ?cnv ?start ?end
+
+WHERE { 
+	
+	?cnv  genome:chr  chr:8 .
+	?cnv  genome:gene  gene:FAM86B2 .
+	?cnv  genome:start  ?start .
+	?cnv  genome:end  ?end .
+	?cnv  genome:mutation_type  "loss" .
+	
+}

@@ -1,0 +1,24 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+PREFIX gene: <http://genomics.datascienceinstitute.ie/cancer/gene/>
+PREFIX drugbank: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+
+SELECT DISTINCT ?drug ?name ?expValue
+ 
+WHERE {
+
+	{
+	 ?enzyme  rdf:type  drugbank:enzymes .
+	 ?enzyme  drugbank:name  ?name .
+	 ?enzyme  drugbank:geneName  "CYP3A5" .
+	 ?drug  drugbank:enzyme  ?enzyme .
+	}
+	
+	UNION
+	
+	{
+	 ?geneExpr  genome:ofGene  gene:CYP3A5 .
+	 ?geneExpr  genome:expression_value  ?expValue .
+	}
+
+}

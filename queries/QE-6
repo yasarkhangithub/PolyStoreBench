@@ -1,0 +1,14 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/> 
+PREFIX gene: <http://genomics.datascienceinstitute.ie/cancer/gene/> 
+
+SELECT DISTINCT ?cnv ?chr ?psite ?segment_mean 
+
+WHERE { 
+
+	?cnv a genome:CNV . 
+	?cnv genome:chr ?chr . 
+	?cnv genome:start ?start . 
+	?cnv genome:gene gene:DUSP22 . 
+	?cnv genome:primary_site ?psite . 
+	?cnv genome:segment_mean ?segment_mean . 
+}

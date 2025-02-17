@@ -1,0 +1,14 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/> 
+PREFIX gene: <http://genomics.datascienceinstitute.ie/cancer/gene/> 
+
+SELECT DISTINCT ?cnv ?gene ?p_site ?total_cn 
+
+WHERE { 
+
+?cnv  genome:gene  ?gene . 
+?cnv  genome:primary_site  ?p_site . 
+?cnv  genome:total_cn  ?total_cn . 
+
+FILTER (?gene = gene:ATP2A1) 
+
+}

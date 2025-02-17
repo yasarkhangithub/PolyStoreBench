@@ -1,0 +1,13 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+PREFIX gene: <http://genomics.datascienceinstitute.ie/cancer/gene/>
+
+SELECT ?cnv ?start ?psite ?sample ?sname
+
+WHERE { 
+	?cnv  genome:gene  gene:DOCK8 .
+	?cnv  genome:start  ?start.
+	?cnv  genome:primary_site  ?psite.
+	?cnv  genome:sample  ?sample.
+	?sample  genome:sample_name ?sname.
+	
+}

@@ -1,0 +1,19 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+PREFIX chr: <http://genomics.datascienceinstitute.ie/cancer/chrom/>
+
+SELECT DISTINCT ?gene ?start ?end ?expValue ?sample
+
+WHERE { 
+	
+	?cnv  genome:mutation_type  ?mutType .
+	?cnv  genome:sample  ?sample .
+	?cnv  genome:start  ?start .
+	?cnv  genome:end  ?end .
+	?cnv  genome:gene  ?gene .
+	?cnv  genome:chr  chr:8 .
+	
+	?geneExpr  genome:ofGene  ?gene .
+	?geneExpr  genome:expression_value  ?expValue .
+	?geneExpr  genome:expr_sample  ?sample .
+	
+}

@@ -1,0 +1,15 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+
+SELECT DISTINCT ?gene ?start ?end ?expValue ?sample
+
+WHERE { 
+	
+	?cnv  genome:mutation_type  ?mutType .
+	?cnv  genome:sample  ?sample .
+	?cnv  genome:gene  ?gene .
+	
+	?geneExpr  genome:ofGene  ?gene .
+	?geneExpr  genome:expression_value  ?expValue .
+	?geneExpr  genome:expr_sample  ?sample .
+	
+}

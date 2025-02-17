@@ -1,0 +1,15 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/> 
+PREFIX gene: <http://genomics.datascienceinstitute.ie/cancer/gene/> 
+PREFIX psite: <http://genomics.datascienceinstitute.ie/cancer/primary_site/> 
+
+SELECT ?cnv ?chr ?start ?end ?pSite 
+
+WHERE { 
+	?cnv  genome:gene  gene:EGFR . 
+	?cnv  genome:start  ?start. 
+	?cnv  genome:end  ?end . 
+	?cnv  genome:chr  ?chr. 
+	?cnv  genome:primary_site  ?pSite . 
+	
+	FILTER (?pSite = psite:lung ) 
+}

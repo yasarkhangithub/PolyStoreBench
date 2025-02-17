@@ -1,0 +1,18 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+PREFIX linkedct: <http://data.linkedct.org/vocab/resource/>
+PREFIX drugbank: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+
+SELECT DISTINCT ?gene ?gene_symbol ?xprValue ?drug ?enzyme ?name
+ 
+WHERE {
+	
+	?gene  genome:gene_symbol  ?gene_symbol .
+	?xpr  genome:ofGene  ?gene .
+	?xpr  genome:expression_value  ?xprValue .
+	?drug  drugbank:enzyme  ?enzyme .
+	?enzyme  drugbank:name  ?name .
+	?enzyme  drugbank:geneName  ?gene_symbol .
+
+}

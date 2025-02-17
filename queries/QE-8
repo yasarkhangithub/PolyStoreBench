@@ -1,0 +1,16 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX linkedct: <http://data.linkedct.org/vocab/resource/>
+PREFIX drugbank: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+
+SELECT ?enzyme ?name ?intervention ?drug ?proteinSeq ?drug_desc
+ 
+WHERE {
+
+    ?enzyme  drugbank:name  ?name .
+    ?enzyme  drugbank:proteinSequence  ?proteinSeq .
+    ?drug drugbank:description ?drug_desc .
+	?drug  drugbank:enzyme  ?enzyme .
+	?intervention  linkedct:intervention_intervention_type  "Drug" .
+	?intervention  rdfs:seeAlso  ?drug .
+
+}

@@ -1,0 +1,18 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+
+SELECT DISTINCT ?probe ?betaValue ?sample ?gene ?start ?end
+
+WHERE { 
+	
+	?meth  genome:mapped_through  ?probe .
+	?meth  genome:beta_value  ?betaValue .
+	?meth  genome:methy_sample  ?sample .
+	
+	?probe  genome:is_part_of  ?gene .
+	
+	?cnv  genome:sample  ?sample .
+	?cnv  genome:start  ?start .
+	?cnv  genome:end  ?end .
+	
+} 
+ORDER BY ?betaValue

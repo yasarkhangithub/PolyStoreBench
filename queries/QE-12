@@ -1,0 +1,16 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>
+
+SELECT DISTINCT ?gene ?mutStart ?mutEnd
+
+WHERE { 
+
+	?mut  genome:occurs_on  ?gene .
+	?mut  genome:fathmm_score  ?fscore .
+	?mut  genome:mutation_start  ?mutStart .
+	?mut  genome:mutation_end  ?mutEnd .
+	?mut  genome:mutation_type  ?mutType .
+	
+	FILTER (?mutStart > 1000 || ?mutEnd < 1000000 )
+
+} 
+GROUP BY ?gene ?mutStart ?mutEnd

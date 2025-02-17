@@ -1,0 +1,16 @@
+PREFIX genome: <http://genomics.datascienceinstitute.ie/cancer/schema/> 
+PREFIX gene: <http://genomics.datascienceinstitute.ie/cancer/gene/> 
+
+SELECT ?cnv ?start ?end ?grch ?psite 
+
+WHERE { 
+
+?cnv genome:chr ?chr . 
+?cnv genome:gene gene:DUSP22. 
+?cnv genome:start ?start . 
+?cnv genome:end ?end . 
+?cnv genome:genome_version ?grch . 
+?cnv genome:primary_site ?psite . 
+
+Filter (?start > 200000 && ?end < 400000) 
+}
