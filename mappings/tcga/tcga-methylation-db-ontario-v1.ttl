@@ -1,0 +1,303 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/tcga-methylation>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+<#DB_source> a d2rq:Database;
+	d2rq:jdbcDSN "jdbc:mysql://srvgal86.deri.ie:3312/tcga_meth";
+	d2rq:jdbcDriver "com.mysql.cj.jdbc.Driver";
+	d2rq:username "root";
+	d2rq:password "root".
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "meth"
+	];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/methy/{cef_sample_name}";
+    rr:class genome:Methylation 
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:mapped_through;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/probe/{Composite_Element_REF}" 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:beta_value;
+    rr:objectMap [
+      rml:reference "Beta_value";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:chr;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{Chromosome}" 
+	]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:methy_start;
+    rr:objectMap [
+      rml:reference "Start";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+
+  rr:predicateObjectMap [
+    rr:predicate genome:methy_end;
+    rr:objectMap [
+      rml:reference "End";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:gene_type;
+    rr:objectMap [
+      rml:reference "Gene_Type";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:transcript;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/trans/{Transcript_ID}" 
+	]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:contig_dif;
+    rr:objectMap [
+      rml:reference "Position_to_TSS";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:cpg_island;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/cgi/{CGI_Chr}-{CGI_Start}-{CGI_End}"
+	]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:feature_type;
+    rr:objectMap [
+      rml:reference "Feature_Type";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:methy_sample;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{Sample_Name}"
+	]
+   ].
+
+   
+   
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "meth"
+	];
+    
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{Sample_Name}";
+        rr:class genome:Sample;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:sample_name;
+    rr:objectMap [
+      rml:reference "Sample_Name";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:tcga_barcode;
+        rr:objectMap [ 
+        	rml:reference "TCGA_Barcode";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].
+    
+    
+    <#TriplesMap3>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "meth"
+	];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/probe/{Composite_Element_REF}";
+        rr:class genome:Probe;
+    ];
+    rr:predicateObjectMap [
+    rr:predicate genome:is_part_of;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{Gene_Symbol}"
+	]
+   ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rml:reference "Composite_Element_REF";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+   
+   
+   <#TriplesMap4>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "meth"
+	];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{Chromosome}";
+        rr:class genome:Chromosome;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rml:reference "Chromosome";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+   <#TriplesMap5>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "meth"
+	];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{Gene_Symbol}";
+        rr:class genome:Gene;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate genome:gene_symbol;
+        rr:objectMap [ 
+        	rml:reference "Gene_Symbol";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+    
+    <#TriplesMap6>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "meth"
+	];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/trans/{Transcript_ID}";
+        rr:class genome:Transcript;
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:ensemble_transcript_id;
+        rr:objectMap [ 
+        	rml:reference "Transcript_ID";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+    
+    <#TriplesMap7>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "meth"
+	];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/cgi/{CGI_Chr}-{CGI_Start}-{CGI_End}";
+        rr:class genome:CPG_Island;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:cgi_chr;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{CGI_Chr}"
+	]
+   ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:cgi_start;
+        rr:objectMap [ 
+        	rml:reference "CGI_Start";
+        	rr:datatype xsd:int;
+        	rr:termType rr:Literal
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:cgi_end;
+        rr:objectMap [ 
+        	rml:reference "CGI_End";
+        	rr:datatype xsd:int;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+    
+    <#TriplesMap8>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "meth"
+	];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{CGI_Chr}";
+        rr:class genome:Chromosome;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rml:reference "CGI_Chr";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].

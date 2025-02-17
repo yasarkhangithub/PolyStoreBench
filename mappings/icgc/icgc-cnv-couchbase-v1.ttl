@@ -1,0 +1,148 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/icgc-cnv>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rr:logicalTable [ rr:tableName "icgc-cnv-bucket" ];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/cnv/{chromosome_start}-{chromosome_end}";
+    rr:class genome:CNV 
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:sample;
+    rr:objectMap [ 
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{sample_id}";
+    	rr:termType rr:IRI
+	]
+   ];
+   
+  rr:predicateObjectMap [
+    rr:predicate genome:segment_mean;
+    rr:objectMap [
+      rr:column "segment_mean";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+      ]
+    ]; 
+   
+  rr:predicateObjectMap [
+    rr:predicate genome:chr;
+    rr:objectMap [ 
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{chromosome}";
+    	rr:termType rr:IRI
+	]
+   ]; 
+   
+  rr:predicateObjectMap [
+    rr:predicate genome:start;
+    rr:objectMap [
+      rr:column "chromosome_start";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+
+  rr:predicateObjectMap [
+    rr:predicate genome:end;
+    rr:objectMap [
+      rr:column "chromosome_end";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+  ]; 
+    
+  rr:predicateObjectMap [
+    rr:predicate genome:genome_version;
+    rr:objectMap [
+      rr:column "assembly_version";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+      ]
+    ].
+   
+   
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "icgc-cnv-bucket" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{sample_id}";
+        rr:class genome:Sample;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:sample_name;
+    rr:objectMap [
+      rr:column "sample_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:tcga_barcode;
+    rr:objectMap [
+      rr:column "submitted_sample_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:donor_id;
+    rr:objectMap [
+      rr:column "icgc_donor_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:project_code;
+    rr:objectMap [
+      rr:column "project_code";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:country_code;
+    rr:objectMap [
+      rr:column "country_code";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:icgc_id;
+        rr:objectMap [ 
+        	rr:column "icgc_sample_id";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].
+   
+   
+   <#TriplesMap3>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "icgc-cnv-bucket" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{chromosome}";
+        rr:class genome:Chromosome;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "chromosome";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].

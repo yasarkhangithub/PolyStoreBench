@@ -1,0 +1,259 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/cosmic-methylation>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rr:logicalTable [ rr:tableName "meth" ];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/methy/{fragment_sample}";
+    rr:class genome:Methylation 
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:meth_study_id;
+    rr:objectMap [
+      rr:column "STUDY_ID";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:methy_sample;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap2> 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:primary_histology;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap4> 
+	]
+   ];
+   
+  rr:predicateObjectMap [
+    rr:predicate genome:mapped_through;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap5> 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:genome_version;
+    rr:objectMap [
+      rr:column "GENOME_VERSION";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+      ]
+    ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:chr;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap6> 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:position;
+    rr:objectMap [
+      rr:column "POSITION";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+  ];
+    
+   rr:predicateObjectMap [
+    rr:predicate genome:strand;
+    rr:objectMap [
+      rr:column "STRAND";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:methylation_level;
+    rr:objectMap [
+      rr:column "METHYLATION";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:average_beta_value;
+    rr:objectMap [
+      rr:column "AVG_BETA_VALUE_NORMAL";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:beta_value;
+    rr:objectMap [
+      rr:column "BETA_VALUE";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:p_value;
+    rr:objectMap [
+      rr:column "TWO_SIDED_P_VALUE";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+    ]
+   ]; 
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:primary_site;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap3> 
+	]
+   ].
+   
+   
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "meth" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{SAMPLE_NAME}";
+        rr:class genome:Sample;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:sample_name;
+    rr:objectMap [
+      rr:column "SAMPLE_NAME";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:tumour_id;
+    rr:objectMap [
+      rr:column "ID_TUMOUR";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ]; 
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:cosmic_id;
+        rr:objectMap [ 
+        	rr:column "ID_SAMPLE";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].
+   
+   
+   <#TriplesMap3>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "meth" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/primary_site/{PRIMARY_SITE}";
+        rr:class genome:Primary_Site;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "PRIMARY_SITE";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+   
+   
+   <#TriplesMap4>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "meth" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/histo/{PRIMARY_HISTOLOGY}";
+        rr:class genome:Primary_Histology;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "PRIMARY_HISTOLOGY";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+    
+    <#TriplesMap5>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "meth" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/probe/{FRAGMENT_ID}";
+        rr:class genome:Probe;
+    ];
+    rr:predicateObjectMap [
+    rr:predicate genome:is_part_of;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap7> 
+	]
+   ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "FRAGMENT_ID";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+   
+   
+   <#TriplesMap6>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "meth" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{CHROMOSOME}";
+        rr:class genome:Chromosome;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "CHROMOSOME";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+   <#TriplesMap7>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "meth" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{GENE_NAME}";
+        rr:class genome:Gene;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate genome:gene_symbol;
+        rr:objectMap [ 
+        	rr:column "GENE_NAME";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].

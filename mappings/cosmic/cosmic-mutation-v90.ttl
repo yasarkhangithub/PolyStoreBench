@@ -1,0 +1,430 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/cosmic-mutation>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rr:logicalTable [ rr:tableName "mutation" ];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/mutation/{GENOMIC_MUTATION_ID}";
+    rr:class genome:Complete_Mutation
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:on_gene;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap7> 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:occurs_on;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap5> 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:consensus_length;
+    rr:objectMap [
+      rr:column "Gene_CDS_length";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:mutant_sample;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap2> 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:primary_histology;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap4> 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:genome_wide_screen;
+    rr:objectMap [
+      rr:column "Genome_wide_screen";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:genomic_mutation_id;
+    rr:objectMap [
+      rr:column "GENOMIC_MUTATION_ID";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+      ]
+    ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:legacy_mutation_id;
+    rr:objectMap [
+      rr:column "LEGACY_MUTATION_ID";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+      ]
+    ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:mutation_id;
+    rr:objectMap [
+      rr:column "MUTATION_ID";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+      ]
+    ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:mutation_cds;
+    rr:objectMap [
+      rr:column "Mutation_CDS";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:mutation_aa;
+    rr:objectMap [
+      rr:column "Mutation_AA";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:mutation_type;
+    rr:objectMap [
+      rr:column "Mutation_Type";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:mutation_event;
+    rr:objectMap [
+      rr:column "Mutation_Event";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:mutation_zygosity;
+    rr:objectMap [
+      rr:column "Mutation_zygosity";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:loh;
+    rr:objectMap [
+      rr:column "LOH";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:genome_version;
+    rr:objectMap [
+      rr:column "GRCh";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+      ]
+    ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:chr;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap6> 
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:mutation_start;
+    rr:objectMap [
+      rr:column "G_Start";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+
+  rr:predicateObjectMap [
+    rr:predicate genome:mutation_end;
+    rr:objectMap [
+      rr:column "G_Stop";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+  ];
+    
+   rr:predicateObjectMap [
+    rr:predicate genome:strand;
+    rr:objectMap [
+      rr:column "Mutation_strand";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:snp;
+    rr:objectMap [
+      rr:column "SNP";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:resistance_mutation;
+    rr:objectMap [
+      rr:column "Resistance_Mutation";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:fathmm_prediction;
+    rr:objectMap [
+      rr:column "FATHMM_prediction";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:fathmm_score;
+    rr:objectMap [
+      rr:column "FATHMM_score";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:mutation_somatic_status;
+    rr:objectMap [
+      rr:column "Mutation_somatic_status";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:pubmed_id;
+    rr:objectMap [
+      rr:column "Pubmed_PMID";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:study_id;
+    rr:objectMap [
+      rr:column "ID_STUDY";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:tumour_origin;
+    rr:objectMap [
+      rr:column "Tumour_origin";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ]; 
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:patient_age;
+    rr:objectMap [
+      rr:column "Age";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:primary_site;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap3> 
+	]
+   ].
+   
+   
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "mutation" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{Sample_name}";
+        rr:class genome:Sample;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:sample_name;
+    rr:objectMap [
+      rr:column "Sample_name";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:tumour_id;
+    rr:objectMap [
+      rr:column "ID_tumour";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:Sample_type;
+    rr:objectMap [
+      rr:column "Sample_Type";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+    
+   rr:predicateObjectMap [
+        rr:predicate genome:cosmic_id;
+        rr:objectMap [ 
+        	rr:column "ID_sample";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].
+   
+   
+   <#TriplesMap3>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "mutation" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/primary_site/{Primary_site}";
+        rr:class genome:Primary_Site;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "Primary_site";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+   
+   
+   <#TriplesMap4>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "mutation" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/histo/{Primary_histology}";
+        rr:class genome:Primary_Histology;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "Primary_histology";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+    
+    <#TriplesMap5>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "mutation" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/trans/{Accession_Number}";
+        rr:class genome:Transcript;
+    ];
+    rr:predicateObjectMap [
+    rr:predicate genome:transcript_of;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap7> 
+	]
+   ];
+    rr:predicateObjectMap [
+        rr:predicate genome:ensemble_transcript_id;
+        rr:objectMap [ 
+        	rr:column "Accession_Number";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+   
+   
+   <#TriplesMap6>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "mutation" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{Chromosome}";
+        rr:class genome:Chromosome;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "Chromosome";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+   <#TriplesMap7>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "mutation" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{Gene_name}";
+        rr:class genome:Gene;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:hgnc_id;
+    rr:objectMap [
+      rr:column "HGNC_ID";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:gene_symbol;
+        rr:objectMap [ 
+        	rr:column "Gene_name";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].

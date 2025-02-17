@@ -1,0 +1,75 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/tcga-cnv>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rr:logicalTable [ rr:tableName "cnv" ];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/cnv/{start_end}";
+    rr:class genome:CNV 
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:start;
+    rr:objectMap [
+      rr:column "Start";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+
+  rr:predicateObjectMap [
+    rr:predicate genome:end;
+    rr:objectMap [
+      rr:column "End";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:probes;
+    rr:objectMap [
+      rr:column "Num_Probes";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+    
+   rr:predicateObjectMap [
+    rr:predicate genome:segment_mean;
+    rr:objectMap [
+      rr:column "Segment_Mean";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+      ]
+    ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:chr;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap2> 
+	]
+   ].
+   
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "cnv" ];
+    
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{Chromosome}";
+        rr:class genome:Chromosome;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "Chromosome";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].

@@ -1,0 +1,166 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/icgc-cnv>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+<#DB_source> a d2rq:Database;
+	d2rq:jdbcDSN "jdbc:mysql://srvgal86.deri.ie:3313/icgc_cnv";
+	d2rq:jdbcDriver "com.mysql.cj.jdbc.Driver";
+	d2rq:username "root";
+	d2rq:password "root".
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "cnv"
+	];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/cnv/{start_end}";
+    rr:class genome:CNV 
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:sample;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{sample_id}" 
+	]
+   ];
+   
+  rr:predicateObjectMap [
+    rr:predicate genome:segment_mean;
+    rr:objectMap [
+      rml:reference "segment_mean";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+      ]
+    ]; 
+   
+  rr:predicateObjectMap [
+    rr:predicate genome:chr;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{chromosome}"
+	]
+   ]; 
+   
+  rr:predicateObjectMap [
+    rr:predicate genome:start;
+    rr:objectMap [
+      rml:reference "chromosome_start";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+
+  rr:predicateObjectMap [
+    rr:predicate genome:end;
+    rr:objectMap [
+      rml:reference "chromosome_end";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+  ]; 
+    
+  rr:predicateObjectMap [
+    rr:predicate genome:genome_version;
+    rr:objectMap [
+      rml:reference "assembly_version";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+      ]
+    ].
+   
+   
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "cnv"
+	];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{sample_id}";
+        rr:class genome:Sample;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:sample_name;
+    rr:objectMap [
+      rml:reference "sample_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:tcga_barcode;
+    rr:objectMap [
+      rml:reference "submitted_sample_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:donor_id;
+    rr:objectMap [
+      rml:reference "icgc_donor_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:project_code;
+    rr:objectMap [
+      rml:reference "project_code";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:country_code;
+    rr:objectMap [
+      rml:reference "country_code";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:icgc_id;
+        rr:objectMap [ 
+        	rml:reference "icgc_sample_id";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].
+   
+   
+   <#TriplesMap3>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "cnv"
+	];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{chromosome}";
+        rr:class genome:Chromosome;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rml:reference "chromosome";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].

@@ -1,0 +1,112 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/icgc-ge>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rr:logicalTable [ rr:tableName "icgc-ge-bucket" ];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/ge/{sample_id}-{gene_id}";
+    rr:class genome:Gene_Expression 
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:expr_sample;
+    rr:objectMap [ 
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{sample_id}";
+    	rr:termType rr:IRI
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:ofGene;
+    rr:objectMap [ 
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{gene_id}";
+    	rr:termType rr:IRI
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:expression_value;
+    rr:objectMap [
+      rr:column "normalized_read_count";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+    ]
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:raw_expr_value;
+    rr:objectMap [
+      rr:column "raw_read_count";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+    ]
+  ].
+   
+   
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "icgc-ge-bucket" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{sample_id}";
+        rr:class genome:Sample;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:sample_name;
+    rr:objectMap [
+      rr:column "sample_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:tcga_barcode;
+    rr:objectMap [
+      rr:column "submitted_sample_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:donor_id;
+    rr:objectMap [
+      rr:column "icgc_donor_id";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:project_code;
+    rr:objectMap [
+      rr:column "project_code";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ].
+   
+   
+   <#TriplesMap3>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "icgc-ge-bucket" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{gene_id}";
+        rr:class genome:Gene;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate genome:gene_symbol;
+        rr:objectMap [ 
+        	rr:column "gene_id";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].

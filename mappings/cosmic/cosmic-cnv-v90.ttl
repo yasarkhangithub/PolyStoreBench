@@ -1,0 +1,215 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/cosmic-cnv>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rr:logicalTable [ rr:tableName "cnv" ];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/cnv/{start_end}";
+    rr:class genome:CNV 
+  ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:cnv_id;
+    rr:objectMap [
+      rr:column "CNV_ID";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:total_cn;
+    rr:objectMap [
+      rr:column "TOTAL_CN";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+    
+  rr:predicateObjectMap [
+    rr:predicate genome:genome_version;
+    rr:objectMap [
+      rr:column "GRCh";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+      ]
+    ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:start;
+    rr:objectMap [
+      rr:column "G_Start";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+      ]
+    ];
+
+  rr:predicateObjectMap [
+    rr:predicate genome:end;
+    rr:objectMap [
+      rr:column "G_Stop";
+      rr:datatype xsd:int;
+      rr:termType rr:Literal
+    ]
+  ];
+    
+   rr:predicateObjectMap [
+    rr:predicate genome:mutation_type;
+    rr:objectMap [
+      rr:column "MUT_TYPE";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:chr;
+	rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap2> 
+	]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:gene;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap3> 
+	]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:sample;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap5> 
+	]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:primary_histology;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap6> 
+	]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:primary_site;
+    rr:objectMap [
+    	a rr:RefObjectMap ;
+        rr:parentTriplesMap <#TriplesMap4> 
+	]
+   ].
+   
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "cnv" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/chrom/{Chromosome}";
+        rr:class genome:Chromosome;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "Chromosome";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+   <#TriplesMap3>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "cnv" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{gene_name}";
+        rr:class genome:Gene;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "gene_name";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+    
+    <#TriplesMap4>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "cnv" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/primary_site/{Primary_site}";
+        rr:class genome:Primary_Site;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "Primary_site";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].
+    
+    
+    <#TriplesMap5>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "cnv" ];
+    
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{SAMPLE_NAME}";
+        rr:class genome:Sample;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:sample_name;
+    rr:objectMap [
+      rr:column "SAMPLE_NAME";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:tumour_id;
+    rr:objectMap [
+      rr:column "ID_TUMOUR";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:cosmic_id;
+        rr:objectMap [ 
+        	rr:column "ID_SAMPLE";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].
+    
+    
+    <#TriplesMap6>
+	a rr:TriplesMap;
+    rr:logicalTable [ rr:tableName "cnv" ];
+  	
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/histo/{Primary_histology}";
+        rr:class genome:Primary_Histology;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ 
+        	rr:column "Primary_histology";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ];
+    ].

@@ -1,0 +1,103 @@
+@base <http://genomics.datascienceinstitute.ie/cancer/mappings/tcga-ge>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix genome: <http://genomics.datascienceinstitute.ie/cancer/schema/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+<#DB_source> a d2rq:Database;
+	d2rq:jdbcDSN "jdbc:mysql://srvgal86.deri.ie:3311/tcga_ge";
+	d2rq:jdbcDriver "com.mysql.cj.jdbc.Driver";
+	d2rq:username "root";
+	d2rq:password "root".
+
+<#TriplesMap1>
+  a rr:TriplesMap;
+  rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "ge"
+	];
+  
+  rr:subjectMap [
+    rr:template "http://genomics.datascienceinstitute.ie/cancer/ge/{Composite_Element_REF}-{Sample_Name}";
+    rr:class genome:Gene_Expression 
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate genome:ofGene;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{Composite_Element_REF}"
+	]
+   ];
+  
+  rr:predicateObjectMap [
+    rr:predicate genome:expression_value;
+    rr:objectMap [
+      rml:reference "expression_value";
+      rr:datatype xsd:double;
+      rr:termType rr:Literal
+    ]
+  ];
+   
+   rr:predicateObjectMap [
+    rr:predicate genome:expr_sample;
+    rr:objectMap [
+    	rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{Sample_Name}"
+	]
+   ].
+   
+    
+   <#TriplesMap2>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "ge"
+	];
+    
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/gene/{Composite_Element_REF}";
+        rr:class genome:Gene;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate genome:gene_symbol;
+        rr:objectMap [ 
+        	rml:reference "Composite_Element_REF";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].
+    
+    
+    <#TriplesMap3>
+	a rr:TriplesMap;
+    rml:logicalSource [
+		rml:source <#DB_source>;
+		rr:sqlVersion rr:SQL2008;
+		rr:tableName "ge"
+	];
+    
+    rr:subjectMap [
+        rr:template "http://genomics.datascienceinstitute.ie/cancer/sample/{Sample_Name}";
+        rr:class genome:Sample;
+    ];
+    
+    rr:predicateObjectMap [
+    rr:predicate genome:tcga_barcode;
+    rr:objectMap [
+      rml:reference "Hybridization_REF";
+      rr:datatype xsd:string;
+      rr:termType rr:Literal
+    ]
+   ];
+    
+    rr:predicateObjectMap [
+        rr:predicate genome:sample_name;
+        rr:objectMap [ 
+        	rml:reference "Sample_Name";
+        	rr:datatype xsd:string;
+        	rr:termType rr:Literal
+        ]
+    ].
